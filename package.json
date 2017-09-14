@@ -1,0 +1,28 @@
+{
+  "name": "volunteervotermatch",
+  "version": "1.0.0",
+  "description": "To help Karen match volunteers with voters to contact in her district",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danhuiZ/VolunteerVoterMatch.git"
+  },
+  "author": "Danhui",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danhuiZ/VolunteerVoterMatch/issues"
+  },
+  "homepage": "https://github.com/danhuiZ/VolunteerVoterMatch#readme",
+  "dependencies": {
+    "axios": "^0.16.2",
+    "body-parser": "^1.18.1",
+    "express": "^4.15.4",
+    "express-session": "^1.15.5",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "path": "^0.12.7"
+  }
+}
