@@ -11,12 +11,18 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
+import RaisedButton from 'material-ui/RaisedButton';
 
 class Volunteer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      voters: []
     };
+  }
+
+  matchvoters() {
+    
   }
 
   render() {
@@ -40,7 +46,7 @@ class Volunteer extends React.Component {
               adjustForCheckbox={false}
               >
               <TableRow>
-                <TableHeaderColumn>Name</TableHeaderColumn>
+                <TableHeaderColumn>Voter Name</TableHeaderColumn>
                 <TableHeaderColumn>Age</TableHeaderColumn>
                 <TableHeaderColumn>Location</TableHeaderColumn>
                 <TableHeaderColumn>Phone Number</TableHeaderColumn>
@@ -52,27 +58,24 @@ class Volunteer extends React.Component {
               stripedRows={false}
               showRowHover={true}
               >
-              <TableRow>
-                <TableRowColumn>John Smith</TableRowColumn>
-                <TableRowColumn>28</TableRowColumn>
-                <TableRowColumn>Ishpeming, MI</TableRowColumn>
-                <TableRowColumn>3482901902</TableRowColumn>
-                <TableRowColumn>2017/8/19</TableRowColumn>
-              </TableRow>
-              <TableRow>
-                <TableRowColumn>John Smith</TableRowColumn>
-                <TableRowColumn>28</TableRowColumn>
-                <TableRowColumn>Ishpeming, MI</TableRowColumn>
-                <TableRowColumn>3482901902</TableRowColumn>
-                <TableRowColumn>2017/8/19</TableRowColumn>
-              </TableRow>
-              <TableRow>
-                <TableRowColumn>John Smith</TableRowColumn>
-                <TableRowColumn>28</TableRowColumn>
-                <TableRowColumn>Ishpeming, MI</TableRowColumn>
-                <TableRowColumn>3482901902</TableRowColumn>
-                <TableRowColumn>2017/8/19</TableRowColumn>
-              </TableRow>
+              {this.state.voters.length===0 ? 
+              <RaisedButton 
+                label="No voters assigned yet. Match yourself with voters to contact now!" 
+                style={{margin:'10px'}} fullWidth={true}
+                onTouchTap={() => this.matchvoters()} 
+              />
+              :
+              this.state.voters.map( (row, index) => (
+                <TableRow key={index}>
+                  <TableRowColumn>{row.name}</TableRowColumn>
+                  <TableRowColumn>{row.age}</TableRowColumn>
+                  <TableRowColumn>{row.location}</TableRowColumn>
+                  <TableRowColumn>{row.phone}</TableRowColumn>
+                  <TableRowColumn>{row.date}</TableRowColumn>
+                </TableRow>
+              ))
+              }
+
             </TableBody>
           </Table>
 

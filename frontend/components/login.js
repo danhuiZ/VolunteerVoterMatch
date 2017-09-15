@@ -45,6 +45,24 @@ class Login extends React.Component {
     });
   }
 
+  handleAdmin() {
+    var self = this;
+    axios.post('http://localhost:3000/adminlogin', {
+      username: this.state.username,
+      password: this.state.password
+    })
+    .then(function({ data }) {
+      console.log('This log should contain the data for login as admin', data);
+      if(data.success) {
+        self.props.history.push({
+          pathname: '/admin'
+        });
+      } else {
+        self.setState({status: 'There was a problem with logging in!'});
+      }
+    });  
+  }
+
   render() {
     const style = {
       marginLeft: 20
@@ -92,8 +110,7 @@ class Login extends React.Component {
             />
             <RaisedButton
               label="Login as admin"
-              containerElement={<Link to='/volunteer'></Link>}
-              onTouchTap={() => this.handleSubmit()}
+              onTouchTap={() => this.handleAdmin()}
             />
           </CardActions>
         </Card>

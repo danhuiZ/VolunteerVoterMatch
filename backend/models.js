@@ -15,9 +15,9 @@ var voterSchema = mongoose.Schema({
   name: String,
   age: Number,
   location: String,
-  phoneNumber: Number,
-  dateLastContacted: Date,
-  volunteerAssigned: Boolean    //ref Object?
+  phone: Number,
+  date: String,    // date last contacted
+  // volunteerAssigned: Boolean    //ref Object?
 })
 
 var Volunteer = mongoose.model('Volunteer', volunteerSchema);

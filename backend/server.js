@@ -58,11 +58,13 @@ passport.use(new LocalStrategy(function(username, password, done) {
   });
 }));
 
-app.use(session({ secret: 'KarenMichigan' }));
+const MongoStore = require('connect-mongo')(session);
+app.use(session({ 
+  secret: 'KarenMichigan',
+  store: new MongoStore({mongooseConnection: require('mongoose').connection}) 
+}));
 app.use(passport.initialize());
 app.use(passport.session());
-
-// app.get('/', auth(passport));
 
 app.post('/login', passport.authenticate('local', { failureRedirect: '/failed' }),function(req, res) {
   res.json({success: true, volunteer: req.user});
@@ -95,6 +97,53 @@ app.post('/register', function(req, res) {
     }
   });
 });
+
+app.post('/adminlogin', function(req, res) {
+  if (req.body.username === 'Karen' && req.body.password === 'Michigan') {
+    res.json({success: true})
+    return;
+  } 
+  res.json({success: false})
+})
+
+app.post('/uploadvoters', function(req, res) {
+  var voters = req.body.voters;
+  var promises = voters.map((voter) => {
+    var { name, age, location, phone, date } = voter;
+    voter = new Voter(voter)
+    return voter.save();
+  });
+  Promise.all(promises)
+  .then(() => res.json({success: true}))
+  .catch(err => { 
+    console.log('error in voters upload, promise.all: ', err)
+  });
+})
+
+app.post('/cleardb', function(req, res) {
+  if (req.body.cleardb) {
+    Voter.remove({}, function(err) {
+      if (err)  {
+        console.log('error removing all voter data from database: ', err);
+      } else {
+        res.json({success: true})
+      }
+    })
+  }
+})
+
+app.post('/loadVolunteers', function(req, res) {
+  if (req.body.loadVolunteers) {
+    console.log('reach loadVolunteers');
+    Volunteer.find({}, function(err, volunteers) {
+      if (err)  {
+        console.log('error finding volunteers: ', err);
+      } else {
+        res.json({success: true, volunteers: volunteers})
+      }
+    })
+  }
+})
 
 app.listen(PORT, error => {
     error
