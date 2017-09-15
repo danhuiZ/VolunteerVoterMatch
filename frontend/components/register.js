@@ -15,19 +15,19 @@ class Register extends React.Component {
     super(props);
     this.state  = {
       username: '',
-      password: '',
-      firstName: '',
-      lastName: '',
-      middleInitial: '',
-      dob: '',
-      politicalInterest: ''    // to be handled
+      password: ''
+      // firstName: '',
+      // lastName: '',
+      // middleInitial: '',
+      // dob: '',
+      // politicalInterest: ''    // to be handled
     };
     this.handleUser = this.handleUser.bind(this);
     this.handlePass = this.handlePass.bind(this);
-    this.handleFirstName = this.handleFirstName.bind(this);
-    this.handleLastName = this.handleLastName.bind(this);
-    this.handleMiddleInitial = this.handleMiddleInitial.bind(this);
-    this.handleDob = this.handleDob.bind(this);
+    // this.handleFirstName = this.handleFirstName.bind(this);
+    // this.handleLastName = this.handleLastName.bind(this);
+    // this.handleMiddleInitial = this.handleMiddleInitial.bind(this);
+    // this.handleDob = this.handleDob.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -39,32 +39,32 @@ class Register extends React.Component {
     this.setState({password: e.target.value});
   }
 
-  handleFirstName(e) {
-    this.setState({firstName: e.target.value});
-  }
-
-  handleLastName(e) {
-    this.setState({lastName: e.target.value});
-  }
-
-  handleMiddleInitial(e) {
-    this.setState({middleInitial: e.target.value});
-  }
-
-  handleDob(e) {
-    this.setState({dob: e.target.value});
-  }
+  // handleFirstName(e) {
+  //   this.setState({firstName: e.target.value});
+  // }
+  // 
+  // handleLastName(e) {
+  //   this.setState({lastName: e.target.value});
+  // }
+  // 
+  // handleMiddleInitial(e) {
+  //   this.setState({middleInitial: e.target.value});
+  // }
+  // 
+  // handleDob(e) {
+  //   this.setState({dob: e.target.value});
+  // }
 
   handleSubmit() {
     var self = this;
     console.log("THIS IS OUR STATE: ", this.state);
     axios.post('http://localhost:3000/register', {
       username: this.state.username,
-      password: this.state.password,
-      firstName: this.state.firstName,
-      lastName: this.state.lastName,
-      middleInitial: this.state.middleInitial,
-      dob: this.state.dob,
+      password: this.state.password
+      // firstName: this.state.firstName,
+      // lastName: this.state.lastName,
+      // middleInitial: this.state.middleInitial,
+      // dob: this.state.dob,
     })
     .then(function( {data} ) {
       if(data.success) {
@@ -131,7 +131,7 @@ class Register extends React.Component {
             />
           </CardActions>
         </Card>
-        <small style={{alignSelf: 'center', marginBottom: '20px'}}>2017 Sygnal.Inc</small>
+        <small style={{alignSelf: 'center', marginBottom: '20px'}}>2017 The Tuesday Company</small>
       </div>
     );
   }

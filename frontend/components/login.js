@@ -30,7 +30,7 @@ class Login extends React.Component {
 
   handleSubmit() {
     var self = this;
-    axios.post('https://sygnalapp.herokuapp.com/login', {
+    axios.post('http://localhost:3000/login', {
       username: this.state.username,
       password: this.state.password
     })

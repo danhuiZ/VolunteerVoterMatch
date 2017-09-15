@@ -1,3 +1,5 @@
+"use strict";
+
 const path = require('path');
 const express = require('express');
 const app = express();
@@ -79,13 +81,13 @@ app.post('/register', function(req, res) {
   console.log("HERE'S SERVER SIDE req.body: ", req.body);
   var newVolunteer = new Volunteer({
     username: req.body.username,
-    password: req.body.password,
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    middleInitial: req.body.middleInitial,
-    dob: req.body.dob,
-    politicalInterest: req.body.politicalInterest,
-    votersToContact: req.body.votersToContact    // Array? ref?
+    password: req.body.password
+    // firstName: req.body.firstName,
+    // lastName: req.body.lastName,
+    // middleInitial: req.body.middleInitial,
+    // dob: req.body.dob,
+    // politicalInterest: req.body.politicalInterest,
+    // votersToContact: req.body.votersToContact    // Array? ref?
   });
   newVolunteer.save(function(err, volunteer) {
     if (err) {
