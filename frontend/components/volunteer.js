@@ -31,7 +31,6 @@ class Volunteer extends React.Component {
             style={{width: '100%'}}
           />
 
-
           <Table
             height={"500px"}
             multiSelectable={true}

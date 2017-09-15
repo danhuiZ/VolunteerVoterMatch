@@ -44,7 +44,6 @@ passport.use(new LocalStrategy(function(username, password, done) {
     if (err) {
       console.log(err);
       return done(err);
-
     }
     // if no user present, auth failed
     if (!volunteer) {
@@ -66,15 +65,7 @@ app.use(passport.session());
 // app.get('/', auth(passport));
 
 app.post('/login', passport.authenticate('local', { failureRedirect: '/failed' }),function(req, res) {
-  Volunteer.find({username: req.body.username}, function(err, volunteers) {
-    volunteers.forEach(function(volunteer) {
-      if(volunteer.password === req.body.password) {
-        res.json({success: true, volunteer: volunteer});
-        return;
-      }
-    })
-    res.json({success: false});
-  })
+  res.json({success: true, volunteer: req.user});
 });
 
 app.get('/failed', function(req, res) {

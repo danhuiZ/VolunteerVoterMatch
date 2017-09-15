@@ -35,7 +35,6 @@ class Login extends React.Component {
     .then(function({ data }) {
       console.log('This log should contain the data', data);
       if(data.success) {
-        console.log('The user should be taken to maps page');
         self.props.history.push({
           pathname: '/volunteer',
           state: { name: data.volunteer.username }
@@ -89,6 +88,10 @@ class Login extends React.Component {
             <RaisedButton
               label="Login"
               primary={true}
+              onTouchTap={() => this.handleSubmit()}
+            />
+            <RaisedButton
+              label="Login as admin"
               containerElement={<Link to='/volunteer'></Link>}
               onTouchTap={() => this.handleSubmit()}
             />
