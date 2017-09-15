@@ -37,7 +37,7 @@ class Login extends React.Component {
       if(data.success) {
         self.props.history.push({
           pathname: '/volunteer',
-          state: { name: data.volunteer.username }
+          state: { name: data.volunteer.username, id: data.volunteer._id }
         });
       } else {
         self.setState({status: 'There was a problem with logging in!'});

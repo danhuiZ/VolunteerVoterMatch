@@ -7,7 +7,7 @@ import TextField from 'material-ui/TextField';
 import Divider from 'material-ui/Divider';
 import Paper from 'material-ui/Paper';
 import DatePicker from 'material-ui/DatePicker';
-import ChipInput from 'material-ui-chip-input'
+import ChipInput from 'material-ui-chip-input';
 
 // or change it to axios request
 
@@ -122,7 +122,7 @@ class Register extends React.Component {
               <DatePicker hintText="Date of birth" value={this.state.dob} onChange={(e, val) => this.handleDob(val)} style={style} underlineShow={false} openToYearSelection={true} />
               <Divider />
               <ChipInput
-                hintText="Your political interest"
+                hintText="Political interest (Press 'Enter')"
                 onChange={(chips) => this.handleChange(chips)}
                 underlineShow={false}
               />

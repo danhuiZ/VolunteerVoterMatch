@@ -94,7 +94,7 @@ class Admin extends React.Component {
         <div className="volunteer">
           <AppBar
             className = "appbars"
-            title="Admin view"
+            title={this.state.volunteers.length!==0 ? "Admin view: Volunteers" : "Admin view: Voters"}
             style={{width: '100%'}}
             iconElementLeft={<IconButton><NavigationClose /></IconButton>}
             onLeftIconButtonTouchTap={() => this.goback()}

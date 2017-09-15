@@ -12,6 +12,8 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 import RaisedButton from 'material-ui/RaisedButton';
+import IconButton from 'material-ui/IconButton';
+import NavigationClose from 'material-ui/svg-icons/navigation/close';
 
 class Volunteer extends React.Component {
   constructor(props) {
@@ -22,7 +24,25 @@ class Volunteer extends React.Component {
   }
 
   matchvoters() {
-    
+    console.log("Volunteer Name", this.props.location.state.name);
+    axios.post('http://localhost:3000/matchVoters', {
+      volunteer: this.props.location.state.name,
+      id: this.props.location.state.id
+    })
+    .then(function({ data }) {
+      console.log('Data from matching voters: ', data);
+      if(data.success) {
+        // alert('Successfully uploaded!')
+      } else {
+        // alert('Failed to upload voter data');
+      }
+    });  
+  }
+  
+  goback() {
+    this.props.history.push({
+      pathname: '/'
+    });
   }
 
   render() {
@@ -35,6 +55,8 @@ class Volunteer extends React.Component {
             className = "appbars"
             title="Voters Assigned to Contact"
             style={{width: '100%'}}
+            iconElementLeft={<IconButton><NavigationClose /></IconButton>}
+            onLeftIconButtonTouchTap={() => this.goback()}
           />
 
           <Table

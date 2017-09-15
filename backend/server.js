@@ -145,6 +145,22 @@ app.post('/loadVolunteers', function(req, res) {
   }
 })
 
+app.post('/matchVoters', function(req, res) {
+  Volunteer.findById(req.body.id, function(err, volunteer) {
+    
+  })
+  // if (req.body.loadVolunteers) {
+  //   console.log('reach loadVolunteers');
+  //   Volunteer.find({}, function(err, volunteers) {
+  //     if (err)  {
+  //       console.log('error finding volunteers: ', err);
+  //     } else {
+  //       res.json({success: true, volunteers: volunteers})
+  //     }
+  //   })
+  // }
+})
+
 app.listen(PORT, error => {
     error
     ? console.error(error)
