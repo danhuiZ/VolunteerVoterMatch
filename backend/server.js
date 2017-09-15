@@ -9,10 +9,14 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const session = require('express-session');
+const cors = require('cors')
 const { Volunteer, Voter } = require('./models.js');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+app.use(cors());
+app.use(express.static('./build'));
 
 //MongoDB connection
 var mongoose = require('mongoose');

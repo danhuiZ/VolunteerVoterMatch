@@ -6,7 +6,7 @@ This project helps digital volunteers who sign up for Karen's campaign in Michig
 
 ## Data provided/ to be provided
 
-Volunteer: first name, last name, middle initial, date of birth, political interest
+Volunteer: first name, last name, middle initial, date of birth, political interest; 
 Voter: name, age, location, phone number, date last contacted
 
 

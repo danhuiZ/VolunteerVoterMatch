@@ -3,10 +3,10 @@ var mongoose = require('mongoose');
 var volunteerSchema = mongoose.Schema({
   username: String,    // added field
   password: String    // added field
-  // firstName: String,
-  // lastName: String,
-  // middleInitial: String,
-  // dob: Date,
+  firstName: String,
+  lastName: String,
+  middleInitial: String,
+  dob: Date,
   // politicalInterest: Array,    // Array??
   // votersToContact: Array    // Array? ref?
 })

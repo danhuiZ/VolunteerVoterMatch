@@ -1,9 +1,11 @@
 import React from 'react';
+import TextField from 'material-ui/TextField';
+import Divider from 'material-ui/Divider';
+import Paper from 'material-ui/Paper';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Card, CardActions, CardMedia, CardTitle, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
 
 class Login extends React.Component {
   constructor(props) {
@@ -11,6 +13,10 @@ class Login extends React.Component {
     this.state  = {
       username: '',
       password: '',
+      firstName: '',
+      lastName: '',
+      middleInitial: '',
+      dob: '',
       status: ''
     };
 
@@ -49,39 +55,41 @@ class Login extends React.Component {
   }
 
   render() {
+    const style = {
+      marginLeft: 20
+    };
+    
     return(
       <div className="loginContainer">
+        <Card style={{ margin: "20px"}}>
+          <CardMedia
+            className="icon"
+            mediaStyle={{width: "400px"}}
+          >
+            <img src='img/tuesdayStrategies.jpg' />
+          </CardMedia>
+        </Card>
         <Card className="card">
           <CardMedia
             className="icon"
-            mediaStyle={{width: "150px", height: "150px"}}
+            mediaStyle={{width: "400px"}}
           >
-            <img src='img/tuesdayStrategies.jpg' />
+            <img src='img/Karen.jpg' />
           </CardMedia>
           <CardTitle
             titleStyle={{textAlign: 'center'}}
             subtitleStyle={{textAlign: 'center'}}
-            title="Volunteer to help elect Karen" subtitle="Your effort matters"/>
+            title="Volunteer now" subtitle="Your effort matters"/>
           <CardText>
             <p style={{color: 'red'}}>{this.state.status}</p>
-            <TextField
-              floatingLabelText="Username"
-              type="text"
-              style={{'boxShadow': 'none'}}
-              value={this.state.username}
-              onChange={(event) => this.handleUser(event)}
-            />
-            <br></br>
-            <TextField
-              floatingLabelText="Password"
-              type="password"
-              style={{'boxShadow': 'none', 'clear': 'both'}}
-              value={this.state.password}
-              onChange={(event) => this.handlePass(event)}
-            />
-            <br></br>
           </CardText>
           <CardActions>
+            <Paper zDepth={1} style={{ margin: "20px", padding: "10px" }}>
+              <TextField hintText="Username" type="text" value={this.state.username} onChange={(e) => this.handleUser(e)} style={style} underlineShow={false} />
+              <Divider />
+              <TextField hintText="Password" type="password" value={this.state.password} onChange={(e) => this.handlePass(e)} style={style} underlineShow={false} />
+              <Divider />
+            </Paper>
             <RaisedButton
               label="New user"
               containerElement={<Link to='/register'></Link>}
@@ -94,6 +102,7 @@ class Login extends React.Component {
             />
           </CardActions>
         </Card>
+
         <small style={{alignSelf: 'center', marginBottom: '20px'}}>2017 The Tuesday Company</small>
       </div>
     );
