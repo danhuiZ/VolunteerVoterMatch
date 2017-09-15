@@ -10,6 +10,7 @@ import DatePicker from 'material-ui/DatePicker';
 import Checkbox from 'material-ui/Checkbox';
 import ActionFavorite from 'material-ui/svg-icons/action/favorite';
 import ActionFavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
+import ChipInput from 'material-ui-chip-input'
 
 // or change it to axios request
 
@@ -22,16 +23,9 @@ class Register extends React.Component {
       firstName: '',
       lastName: '',
       middleInitial: '',
-      dob: ''
-      // politicalInterest: ''    // to be handled
+      dob: '',
+      politicalInterest: []
     };
-    this.handleUser = this.handleUser.bind(this);
-    this.handlePass = this.handlePass.bind(this);
-    this.handleFirstName = this.handleFirstName.bind(this);
-    this.handleLastName = this.handleLastName.bind(this);
-    this.handleMiddleInitial = this.handleMiddleInitial.bind(this);
-    this.handleDob = this.handleDob.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleUser(e) {
@@ -54,8 +48,14 @@ class Register extends React.Component {
     this.setState({middleInitial: e.target.value});
   }
   
-  handleDob(e) {
-    this.setState({dob: e.target.value});
+  handleDob(val) {
+    console.log("date to set: ", val);
+    this.setState({dob: val});
+  }
+
+  handleChange(chips) {
+    console.log("chips ahoy: ", chips);
+    this.setState({politicalInterest: [...chips]});
   }
 
   handleSubmit() {
@@ -67,14 +67,15 @@ class Register extends React.Component {
       firstName: this.state.firstName,
       lastName: this.state.lastName,
       middleInitial: this.state.middleInitial,
-      dob: this.state.dob
+      dob: this.state.dob,
+      politicalInterest: this.state.politicalInterest
     })
     .then(function( {data} ) {
       if(data.success) {
-        console.log('data.success, supposed to redirect');
+        console.log('data.success, supposed to redirect, data.volunteer: ', data.volunteer);
         self.props.history.push({
           pathname: '/volunteer',
-          state: { name: data.user.username }
+          state: { name: data.volunteer.username }
         });
       }
     })
@@ -108,7 +109,7 @@ class Register extends React.Component {
           <CardTitle
             titleStyle={{textAlign: 'center'}}
             subtitleStyle={{textAlign: 'center'}}
-            title="Volunteer now" subtitle="Your effort matters"/>
+            title="Become a digital volunteer" subtitle="Your effort matters"/>
           <CardActions>
             <Paper zDepth={1} style={{ margin: "20px", padding: "10px" }}>
               <TextField hintText="Pick a username for future login" type="text" value={this.state.username} onChange={(e) => this.handleUser(e)} style={style} underlineShow={false} />
@@ -117,11 +118,17 @@ class Register extends React.Component {
               <Divider />
               <TextField hintText="First name" value={this.state.firstName} onChange={(e) => this.handleFirstName(e)} style={style} underlineShow={false} />
               <Divider />
-              <TextField hintText="Middle Initial" value={this.state.lastName} onChange={(e) => this.handleMiddleInitial(e)} style={style} underlineShow={false} />
+              <TextField hintText="Middle Initial" value={this.state.middleInitial} onChange={(e) => this.handleMiddleInitial(e)} style={style} underlineShow={false} />
               <Divider />
-              <TextField hintText="Last name" value={this.state.middleInitial} onChange={(e) => this.handleLastName(e)} style={style} underlineShow={false} />
+              <TextField hintText="Last name" value={this.state.lastName} onChange={(e) => this.handleLastName(e)} style={style} underlineShow={false} />
               <Divider />
-              <DatePicker hintText="Date of birth" value={this.state.dob} onChange={(e) => this.handleDob(e)} style={style} underlineShow={false} openToYearSelection={true} />
+              <DatePicker hintText="Date of birth" value={this.state.dob} onChange={(e, val) => this.handleDob(val)} style={style} underlineShow={false} openToYearSelection={true} />
+              <Divider />
+              <ChipInput
+                hintText="Your political interest"
+                onChange={(chips) => this.handleChange(chips)}
+                underlineShow={false}
+              />
               <Divider />
             </Paper>
             <RaisedButton

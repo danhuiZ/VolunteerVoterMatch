@@ -20,10 +20,6 @@ class Login extends React.Component {
       status: ''
     };
 
-    this.handleUser = this.handleUser.bind(this);
-    this.handlePass = this.handlePass.bind(this);
-    // this.handleSubmit = this.handleSubmit.bind(this);
-
   }
 
   handleUser(e) {
@@ -79,7 +75,7 @@ class Login extends React.Component {
           <CardTitle
             titleStyle={{textAlign: 'center'}}
             subtitleStyle={{textAlign: 'center'}}
-            title="Volunteer now" subtitle="Your effort matters"/>
+            title="The Choice is Clear" subtitle="Let's make a difference!"/>
           <CardText>
             <p style={{color: 'red'}}>{this.state.status}</p>
           </CardText>
