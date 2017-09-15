@@ -7,9 +7,6 @@ import TextField from 'material-ui/TextField';
 import Divider from 'material-ui/Divider';
 import Paper from 'material-ui/Paper';
 import DatePicker from 'material-ui/DatePicker';
-import Checkbox from 'material-ui/Checkbox';
-import ActionFavorite from 'material-ui/svg-icons/action/favorite';
-import ActionFavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
 import ChipInput from 'material-ui-chip-input'
 
 // or change it to axios request

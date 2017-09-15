@@ -13,10 +13,6 @@ class Login extends React.Component {
     this.state  = {
       username: '',
       password: '',
-      firstName: '',
-      lastName: '',
-      middleInitial: '',
-      dob: '',
       status: ''
     };
 
@@ -42,7 +38,7 @@ class Login extends React.Component {
         console.log('The user should be taken to maps page');
         self.props.history.push({
           pathname: '/volunteer',
-          state: { name: data.user.username }
+          state: { name: data.volunteer.username }
         });
       } else {
         self.setState({status: 'There was a problem with logging in!'});
@@ -94,7 +90,7 @@ class Login extends React.Component {
               label="Login"
               primary={true}
               containerElement={<Link to='/volunteer'></Link>}
-              // onTouchTap={() => this.handleSubmit()}
+              onTouchTap={() => this.handleSubmit()}
             />
           </CardActions>
         </Card>
