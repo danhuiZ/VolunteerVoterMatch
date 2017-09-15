@@ -24,21 +24,22 @@ class Volunteer extends React.Component {
   }
 
   matchvoters() {
+    var self = this;
     console.log("Volunteer Name", this.props.location.state.name);
     axios.post('http://localhost:3000/matchVoters', {
       volunteer: this.props.location.state.name,
-      id: this.props.location.state.id
+      id: this.props.location.state.id    // volunteer id passed from login or register props
     })
     .then(function({ data }) {
-      console.log('Data from matching voters: ', data);
+      console.log('Data from matching voters, data: ', data);
       if(data.success) {
-        // alert('Successfully uploaded!')
+        self.setState({voters: [...data.votersMatched]})
       } else {
-        // alert('Failed to upload voter data');
+        alert('Failed to match with voters')
       }
-    });  
+    });
   }
-  
+
   goback() {
     this.props.history.push({
       pathname: '/'
@@ -80,11 +81,11 @@ class Volunteer extends React.Component {
               stripedRows={false}
               showRowHover={true}
               >
-              {this.state.voters.length===0 ? 
-              <RaisedButton 
-                label="No voters assigned yet. Match yourself with voters to contact now!" 
+              {this.state.voters.length===0 ?
+              <RaisedButton
+                label="No voters assigned yet. Match yourself with voters to contact now!"
                 style={{margin:'10px'}} fullWidth={true}
-                onTouchTap={() => this.matchvoters()} 
+                onTouchTap={() => this.matchvoters()}
               />
               :
               this.state.voters.map( (row, index) => (

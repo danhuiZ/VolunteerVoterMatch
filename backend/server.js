@@ -59,9 +59,9 @@ passport.use(new LocalStrategy(function(username, password, done) {
 }));
 
 const MongoStore = require('connect-mongo')(session);
-app.use(session({ 
+app.use(session({
   secret: 'KarenMichigan',
-  store: new MongoStore({mongooseConnection: require('mongoose').connection}) 
+  store: new MongoStore({mongooseConnection: require('mongoose').connection})
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -84,7 +84,7 @@ app.post('/register', function(req, res) {
     middleInitial: req.body.middleInitial,
     dob: req.body.dob,
     politicalInterest: req.body.politicalInterest,
-    // votersToContact: req.body.votersToContact    // Array? ref?
+    matchedVoters: []
   });
   newVolunteer.save(function(err, volunteer) {
     if (err) {
@@ -102,7 +102,7 @@ app.post('/adminlogin', function(req, res) {
   if (req.body.username === 'Karen' && req.body.password === 'Michigan') {
     res.json({success: true})
     return;
-  } 
+  }
   res.json({success: false})
 })
 
@@ -115,7 +115,7 @@ app.post('/uploadvoters', function(req, res) {
   });
   Promise.all(promises)
   .then(() => res.json({success: true}))
-  .catch(err => { 
+  .catch(err => {
     console.log('error in voters upload, promise.all: ', err)
   });
 })
@@ -147,18 +147,39 @@ app.post('/loadVolunteers', function(req, res) {
 
 app.post('/matchVoters', function(req, res) {
   Volunteer.findById(req.body.id, function(err, volunteer) {
-    
+    var numVotersToFind = 10 - volunteer.matchedVoters.length;    // Change the number here to change how many voters we wish each volunteer is matched to
+    console.log("Number of voters to find: ", numVotersToFind);
+    if ( numVotersToFind > 0 ) {
+      Voter.find().exists('volunteerAssigned', false)
+      .limit(numVotersToFind)
+      .exec( (err, voters) => {
+        if (err) {console.log("error occured in finding voters ", err);}
+        else {
+          console.log("voters assigned to this volunteer: ", voters);
+          var voterIdArr = voters.map((voter) => (voter._id));
+          Volunteer.update({_id: volunteer._id}, { matchedVoters: [...voterIdArr] })
+          .populate('matchedVoters')
+          .exec( (err, thisVolunteer) => {
+            if(err) {console.log("err in thisVolunteer: ", err);}
+            else console.log("why aren't the voters populated");    // why aren't they???
+          })
+
+          voterIdArr.forEach((voterId) => {
+            Voter.update({_id: voterId}, {volunteerAssigned: volunteer._id})
+            .populate('volunteerAssigned')
+            .exec((err, voter) => {
+              console.log("updated voter");
+            })
+          })
+
+          res.json({success: true, votersMatched: voters})
+        }
+
+      });
+
+    }
   })
-  // if (req.body.loadVolunteers) {
-  //   console.log('reach loadVolunteers');
-  //   Volunteer.find({}, function(err, volunteers) {
-  //     if (err)  {
-  //       console.log('error finding volunteers: ', err);
-  //     } else {
-  //       res.json({success: true, volunteers: volunteers})
-  //     }
-  //   })
-  // }
+
 })
 
 app.listen(PORT, error => {

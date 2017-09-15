@@ -7,8 +7,15 @@ var volunteerSchema = mongoose.Schema({
   lastName: String,
   middleInitial: String,
   dob: Date,
-  politicalInterest: Array
-  // votersToContact: Array    // Array? ref?
+  politicalInterest: Array,
+  matchedVoters: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Voter'
+  }]
+},{
+  toJSON:{
+    virtuals:true
+  }
 })
 
 var voterSchema = mongoose.Schema({
@@ -17,7 +24,21 @@ var voterSchema = mongoose.Schema({
   location: String,
   phone: Number,
   date: String,    // date last contacted
-  // volunteerAssigned: Boolean    //ref Object?
+  volunteerAssigned: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Volunteer'
+  }
+})
+
+function getAge(birthday) {
+  var ageDifMs = Date.now() - birthday.getTime();
+  var ageDate = new Date(ageDifMs); // miliseconds from epoch
+  return Math.abs(ageDate.getUTCFullYear() - 1970);
+}
+
+var ageVirtual = volunteerSchema.virtual('age');
+ageVirtual.get(function(){
+  return getAge(this.dob)
 })
 
 var Volunteer = mongoose.model('Volunteer', volunteerSchema);

@@ -36,15 +36,15 @@ class Register extends React.Component {
   handleFirstName(e) {
     this.setState({firstName: e.target.value});
   }
-  
+
   handleLastName(e) {
     this.setState({lastName: e.target.value});
   }
-  
+
   handleMiddleInitial(e) {
     this.setState({middleInitial: e.target.value});
   }
-  
+
   handleDob(val) {
     console.log("date to set: ", val);
     this.setState({dob: val});
@@ -72,7 +72,7 @@ class Register extends React.Component {
         console.log('data.success, supposed to redirect, data.volunteer: ', data.volunteer);
         self.props.history.push({
           pathname: '/volunteer',
-          state: { name: data.volunteer.username }
+          state: { name: data.volunteer.username,  id: data.volunteer._id }
         });
       }
     })
@@ -85,7 +85,7 @@ class Register extends React.Component {
     const style = {
       marginLeft: 20,
     };
-    
+
     return(
       <div className="loginContainer">
         <Card style={{ margin: "20px"}}>

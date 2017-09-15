@@ -23,7 +23,7 @@ class Admin extends React.Component {
       status: '',
       volunteers: []
     };
-    
+
     this.toLocalDate = this.toLocalDate.bind(this);
   }
 
@@ -38,7 +38,7 @@ class Admin extends React.Component {
       } else {
         alert('Failed to upload voter data');
       }
-    });  
+    });
   }
 
   cleardb() {
@@ -52,9 +52,9 @@ class Admin extends React.Component {
       } else {
         alert('Failed to clear voter database');
       }
-    });  
+    });
   }
-  
+
   loadVolunteers() {
     var self = this;
     axios.post('http://localhost:3000/loadVolunteers', {
@@ -67,13 +67,13 @@ class Admin extends React.Component {
       } else {
         self.setState({volunteers: [...data.volunteers]})
       }
-    });  
+    });
   }
 
   loadVoters() {
     this.setState({volunteers: []})
   }
-  
+
   toLocalDate(dateString) {
     var bday = new Date(dateString);
     return bday.toLocaleString().split(',')[0];
@@ -108,10 +108,11 @@ class Admin extends React.Component {
               displaySelectAll={false}
               adjustForCheckbox={false}
               >
-                {this.state.volunteers.length!==0 ? 
-                <TableRow>  
+                {this.state.volunteers.length!==0 ?
+                <TableRow>
                   <TableHeaderColumn>Volunteer First Name</TableHeaderColumn>
                   <TableHeaderColumn>Last Name</TableHeaderColumn>
+                  <TableHeaderColumn>Age</TableHeaderColumn>
                   <TableHeaderColumn>Date of birth</TableHeaderColumn>
                   <TableHeaderColumn>Political Interest</TableHeaderColumn>
                 </TableRow>
@@ -130,11 +131,12 @@ class Admin extends React.Component {
               stripedRows={false}
               showRowHover={true}
               >
-                {this.state.volunteers.length!==0 ? 
+                {this.state.volunteers.length!==0 ?
                   this.state.volunteers.map( (row, index) => (
                     <TableRow key={index}>
                       <TableRowColumn>{row.firstName}</TableRowColumn>
                       <TableRowColumn>{row.lastName}</TableRowColumn>
+                      <TableRowColumn>{row.age}</TableRowColumn>
                       <TableRowColumn>{this.toLocalDate(row.dob)}</TableRowColumn>
                       <TableRowColumn>{row.politicalInterest.join(', ')}</TableRowColumn>
                     </TableRow>
@@ -154,27 +156,27 @@ class Admin extends React.Component {
             </TableBody>
           </Table>
           <p style={{color: 'red'}}>{this.state.status ? this.stats.status : ''}</p>
-          <RaisedButton 
-            label="Clear existing voter data from database" 
+          <RaisedButton
+            label="Clear existing voter data from database"
             primary={true} style={{margin:'10px', width: '30%'}}
-            onTouchTap={() => this.cleardb()} 
+            onTouchTap={() => this.cleardb()}
           />
-          <RaisedButton 
-            label="Load shown voter data into database" 
+          <RaisedButton
+            label="Load shown voter data into database"
             primary={true} style={{margin:'10px', width: '30%'}}
-            onTouchTap={() => this.uploadVoterData()} 
+            onTouchTap={() => this.uploadVoterData()}
           />
-          {this.state.volunteers.length!==0 ? 
-            <RaisedButton 
-              label="View all voters" 
+          {this.state.volunteers.length!==0 ?
+            <RaisedButton
+              label="View all voters"
               primary={true} style={{margin:'10px', width: '30%'}}
-              onTouchTap={() => this.loadVoters()} 
+              onTouchTap={() => this.loadVoters()}
             />
-          : 
-            <RaisedButton 
-              label="View all volunteers" 
+          :
+            <RaisedButton
+              label="View all volunteers"
               primary={true} style={{margin:'10px', width: '30%'}}
-              onTouchTap={() => this.loadVolunteers()} 
+              onTouchTap={() => this.loadVolunteers()}
             />
           }
           <br></br>
