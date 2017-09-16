@@ -24,6 +24,7 @@ To build:
 git clone https://github.com/danhuiZ/VolunteerVoterMatch.git
 cd VolunteerVoterMatch
 npm install
+source env.sh
 npm start
 ```
 ## Additional reminders
