@@ -77,6 +77,8 @@ class Admin extends React.Component {
   toLocalDate(dateString) {
     var bday = new Date(dateString);
     return bday.toLocaleString().split(',')[0];
+    //   <TableRowColumn>{this.toLocalDate(row.dob)}</TableRowColumn>
+    // can add the above row to JSX and easily display date of birth on the page
   }
 
   goback() {
@@ -113,7 +115,6 @@ class Admin extends React.Component {
                   <TableHeaderColumn>Volunteer First Name</TableHeaderColumn>
                   <TableHeaderColumn>Last Name</TableHeaderColumn>
                   <TableHeaderColumn>Age</TableHeaderColumn>
-                  <TableHeaderColumn>Date of birth</TableHeaderColumn>
                   <TableHeaderColumn>Political Interest</TableHeaderColumn>
                 </TableRow>
                 :
@@ -137,7 +138,6 @@ class Admin extends React.Component {
                       <TableRowColumn>{row.firstName}</TableRowColumn>
                       <TableRowColumn>{row.lastName}</TableRowColumn>
                       <TableRowColumn>{row.age}</TableRowColumn>
-                      <TableRowColumn>{this.toLocalDate(row.dob)}</TableRowColumn>
                       <TableRowColumn>{row.politicalInterest.join(', ')}</TableRowColumn>
                     </TableRow>
                   ))

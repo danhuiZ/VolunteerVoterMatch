@@ -140,7 +140,7 @@ class Register extends React.Component {
           </CardActions>
         </Card>
 
-        <small style={{alignSelf: 'center', marginBottom: '20px'}}>2017 The Tuesday Company</small>
+        <small style={{alignSelf: 'center', marginBottom: '20px', marginTop: '100px'}}>2017 The Tuesday Company</small>
       </div>
     );
   }
