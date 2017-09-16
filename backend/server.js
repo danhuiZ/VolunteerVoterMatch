@@ -67,7 +67,12 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.post('/login', passport.authenticate('local', { failureRedirect: '/failed' }),function(req, res) {
-  res.json({success: true, volunteer: req.user});
+  // var votersMatched = req.user.matchedVoters.map((voterId) => {
+  //   return Voter.findById(voterId, (err, voter) => (voter))
+  // })
+  Voter.find({volunteerAssigned: req.user._id}, (err, matchedVoters) => {
+    res.json({success: true, volunteer: req.user, matchedVoters: matchedVoters});
+  })
 });
 
 app.get('/failed', function(req, res) {
@@ -92,14 +97,14 @@ app.post('/register', function(req, res) {
       return;
     } else {
       console.log(volunteer);
-      res.json({success: true, volunteer: volunteer});
+      res.json({success: true, volunteer: volunteer, matchedVoters: []});
       return;
     }
   });
 });
 
 app.post('/adminlogin', function(req, res) {
-  if (req.body.username === 'Karen' && req.body.password === 'Michigan') {
+  if (req.body.username === 'Karen' && req.body.password === 'Michigan') {    // default username and password for admin view
     res.json({success: true})
     return;
   }
@@ -157,16 +162,17 @@ app.post('/matchVoters', function(req, res) {
         else {
           console.log("voters assigned to this volunteer: ", voters);
           var voterIdArr = voters.map((voter) => (voter._id));
-          Volunteer.update({_id: volunteer._id}, { matchedVoters: [...voterIdArr] })
-          .populate('matchedVoters')
+
+          Volunteer.update({_id: volunteer._id}, { matchedVoters: [...voterIdArr] }, {multi:true})
+          .populate('matchedVoters')    // TODO: CHECK THIS AGAIN
           .exec( (err, thisVolunteer) => {
             if(err) {console.log("err in thisVolunteer: ", err);}
-            else console.log("why aren't the voters populated");    // why aren't they???
+            else console.log("voters should be populated");    // why aren't they???
           })
 
           voterIdArr.forEach((voterId) => {
-            Voter.update({_id: voterId}, {volunteerAssigned: volunteer._id})
-            .populate('volunteerAssigned')
+            Voter.update({_id: voterId}, {volunteerAssigned: volunteer._id}, {multi:true})
+            .populate('volunteerAssigned')    // TODO: CHECK THIS AGAIN
             .exec((err, voter) => {
               console.log("updated voter");
             })

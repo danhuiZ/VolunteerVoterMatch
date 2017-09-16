@@ -19,7 +19,7 @@ class Volunteer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      voters: []
+      voters: this.props.location.state.voters    // passed in from login or register props
     };
   }
 
@@ -48,7 +48,7 @@ class Volunteer extends React.Component {
 
   render() {
     const contentStyle = {margin: '0 16px'};
-    console.log('rendering volunteer view');
+    console.log('rendering volunteer view, voter state: ', this.state.voters, this.props.location);
     return(
       <div>
         <div className="volunteer">
@@ -102,7 +102,7 @@ class Volunteer extends React.Component {
             </TableBody>
           </Table>
 
-          <small style={{alignSelf: 'center', marginTop: '20px', marginBottom: '20px'}}>2017 The Tuesday Company</small>
+          <small style={{alignSelf: 'center', marginTop: '40px', marginBottom: '20px'}}>2017 The Tuesday Company</small>
         </div>
       </div>
     );

@@ -72,7 +72,7 @@ class Register extends React.Component {
         console.log('data.success, supposed to redirect, data.volunteer: ', data.volunteer);
         self.props.history.push({
           pathname: '/volunteer',
-          state: { name: data.volunteer.username,  id: data.volunteer._id }
+          state: { name: data.volunteer.username,  id: data.volunteer._id, voters: data.matchedVoters }
         });
       }
     })

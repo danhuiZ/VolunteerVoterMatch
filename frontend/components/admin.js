@@ -180,7 +180,7 @@ class Admin extends React.Component {
             />
           }
           <br></br>
-          <small style={{alignSelf: 'center', marginTop: '20px', marginBottom: '20px', paddingTop: '20px'}}>2017 The Tuesday Company</small>
+          <small style={{alignSelf: 'center', marginTop: '40px', marginBottom: '20px', paddingTop: '20px'}}>2017 The Tuesday Company</small>
         </div>
       </div>
     );
