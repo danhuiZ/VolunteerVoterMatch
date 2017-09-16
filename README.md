@@ -28,5 +28,5 @@ npm start
 ```
 ## Additional reminders
 
-- Make sure you have your ```env.sh``` file which is in the format of ```export MONGODB_URI="mongodb://{username}:{password}@xx123456.mlab.com:12345/{databaseName}}";``` for process variable
+- Make sure you have your ```env.sh``` file which is in the format of ```export MONGODB_URI="mongodb://{username}:{password}@xx123456.mlab.com:12345/{databaseName}";``` for process variable
 - The voter data can be changed by updating the ```voters.json``` file and pressing load voter data button under admin view
